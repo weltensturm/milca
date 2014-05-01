@@ -2,6 +2,7 @@ package milca;
 
 public class test {
 	private int bla;
+	private float k;
 
 	public int getBla() {
 		return bla;
