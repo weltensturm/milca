@@ -7,9 +7,10 @@ import org.apache.pivot.wtk.Display;
 import org.apache.pivot.wtk.Window;
  
 import org.apache.pivot.wtk.DesktopApplicationContext;
- 
+
+
 public class App implements Application {
-	
+
 	public static void main(String[] args) {
 	    DesktopApplicationContext.main(App.class, args);
 	}
@@ -23,7 +24,7 @@ public class App implements Application {
         window = (Window)bxmlSerializer.readObject(App.class, "app.bxml");
         window.open(display);
     }
- 
+
     @Override
     public boolean shutdown(boolean optional) {
         if (window != null) {
@@ -32,12 +33,13 @@ public class App implements Application {
  
         return false;
     }
- 
+
     @Override
     public void suspend() {
     }
- 
+
     @Override
     public void resume() {
     }
+
 }
