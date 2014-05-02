@@ -14,7 +14,7 @@
 					<TablePane.Column width="212"/>
 				</columns>
 				<TablePane.Row height="1*">
-					<Label text="1*" styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
+					<Label text="Hans" styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
 				</TablePane.Row>
 				<TablePane.Row height="50">
 					<TablePane bxml:id="tablePane3" styles="{verticalSpacing:3, horizontalSpacing:3}">
