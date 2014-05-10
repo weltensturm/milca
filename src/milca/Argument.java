@@ -7,4 +7,6 @@ class Argument {
 		return true;
 	};
 	
+	public static final String identifier = "none";
+	
 }
