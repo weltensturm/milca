@@ -5,29 +5,29 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="milca.GUI">
+<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="milca.GUIController">
    <children>
       <MenuBar id="menuBar" prefHeight="25.0" prefWidth="600">
         <menus>
           <Menu id="menu_file" mnemonicParsing="false" text="Datei">
             <items>
-                  <MenuItem id="item1" fx:id="menu_new" mnemonicParsing="false" text="Neu">
+                  <MenuItem id="item1" fx:id="menu_new" mnemonicParsing="false" onAction="#newFile" text="Neu">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem id="item2" fx:id="menu_open" mnemonicParsing="false" text="Öffnen">
+                  <MenuItem id="item2" fx:id="menu_open" mnemonicParsing="false" onAction="#openFile" text="Öffnen">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem id="item3" fx:id="menu_save" mnemonicParsing="false" text="Speichern">
+                  <MenuItem id="item3" fx:id="menu_save" mnemonicParsing="false" onAction="#save" text="Speichern">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem id="item4" fx:id="menu_saveas" mnemonicParsing="false" text="Speichern unter..." />
-              	  <MenuItem id="item5" fx:id="menu_close" mnemonicParsing="false" text="Close">
+                  <MenuItem id="item4" fx:id="menu_saveas" mnemonicParsing="false" onAction="#saveAs" text="Speichern unter..." />
+              	  <MenuItem id="item5" fx:id="menu_close" mnemonicParsing="false" onAction="#closeWindow" text="Close">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -36,7 +36,7 @@
           </Menu>
           <Menu id="menu1" mnemonicParsing="false" text="?">
             <items>
-              <MenuItem id="item6" fx:id="menu_help" mnemonicParsing="false" text="About" />
+              <MenuItem id="item6" fx:id="menu_help" mnemonicParsing="false" onAction="#help" text="About" />
             </items>
           </Menu>
         </menus>
@@ -58,9 +58,23 @@
                            <children>
                               <AnchorPane id="anchorPane2" prefHeight="350.0" prefWidth="300.0" GridPane.columnIndex="1">
                                  <children>
-                                    <ScrollPane id="scrollPane1" prefHeight="350.0" prefWidth="300.0">
+                                    <ScrollPane prefHeight="364.0" prefWidth="300.0">
                                       <content>
-                                        <AnchorPane id="anchorPane3" prefHeight="350.0" prefWidth="300.0" />
+                                        <AnchorPane minHeight="364.0" minWidth="0.0" prefWidth="300.0">
+                                             <children>
+                                                <TableView prefWidth="300.0">
+                                                  <columns>
+                                                    <TableColumn id="col1" fx:id="colP" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="P" visible="false" />
+                                                    <TableColumn id="col2" fx:id="colQ" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="Q" visible="false" />
+                                                      <TableColumn id="col3" fx:id="colR" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="R" visible="false" />
+                                                      <TableColumn id="col4" fx:id="colS" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="S" visible="false" />
+                                                      <TableColumn id="col5" fx:id="colT" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="T" visible="false" />
+                                                      <TableColumn id="col6" fx:id="colU" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" text="U" visible="false" />
+                                                      <TableColumn id="col7" fx:id="colSolution" editable="false" maxWidth="285.0" minWidth="74.0" prefWidth="-1.0" sortable="false" text="Ergebnis" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
                                       </content>
                                     </ScrollPane>
                                  </children>
@@ -96,24 +110,24 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Button id="button_p" fx:id="button_p" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="P" GridPane.valignment="TOP" />
-                                                <Button id="button_q" fx:id="button_q" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="Q" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-                                                <Button id="button_and" fx:id="button_q" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="∧" GridPane.columnIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_enter1" fx:id="button_enter1" alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                                <Button id="button_nand" fx:id="button_nand" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↑" GridPane.columnIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_r" fx:id="button_r" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="R" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                                <Button id="button_s" fx:id="button_s" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="S" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                                <Button id="button_t" fx:id="button_t" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="T" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_u" fx:id="button_u" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="U" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_or" fx:id="button_or" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="∨" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                                <Button id="button_lbr" fx:id="button_lbr" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="(" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_rbr" fx:id="button_rbr" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text=")" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_equ" fx:id="button_equ" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="⇔" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_imp" fx:id="button_imp" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="⇒" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_nor" fx:id="button_nor" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↓" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                                <Button id="button_not" fx:id="button_not" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="¬" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                                <Button id="button_w1" fx:id="button_w1" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_f1" fx:id="button_f1" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_p" fx:id="button_p" mnemonicParsing="false" onAction="#pressP" prefHeight="49.0" prefWidth="74.0" text="P" GridPane.valignment="TOP" />
+                                                <Button id="button_q" fx:id="button_q" mnemonicParsing="false" onAction="#pressQ" prefHeight="49.0" prefWidth="74.0" text="Q" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                                                <Button id="button_and" fx:id="button_q" mnemonicParsing="false" onAction="#pressAND" prefHeight="49.0" prefWidth="74.0" text="∧" GridPane.columnIndex="2" GridPane.valignment="TOP" />
+                                                <Button id="button_enter1" fx:id="button_enter1" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#processingFormula" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                                <Button id="button_nand" fx:id="button_nand" mnemonicParsing="false" onAction="#pressNAND" prefHeight="49.0" prefWidth="74.0" text="↑" GridPane.columnIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_r" fx:id="button_r" mnemonicParsing="false" onAction="#pressR" prefHeight="49.0" prefWidth="74.0" text="R" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                <Button id="button_s" fx:id="button_s" mnemonicParsing="false" onAction="#pressS" prefHeight="49.0" prefWidth="74.0" text="S" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                <Button id="button_t" fx:id="button_t" mnemonicParsing="false" onAction="#pressT" prefHeight="49.0" prefWidth="74.0" text="T" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                                <Button id="button_u" fx:id="button_u" mnemonicParsing="false" onAction="#pressU" prefHeight="49.0" prefWidth="74.0" text="U" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                                <Button id="button_or" fx:id="button_or" mnemonicParsing="false" onAction="#pressOR" prefHeight="49.0" prefWidth="74.0" text="∨" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                <Button id="button_lbr" fx:id="button_lbr" mnemonicParsing="false" onAction="#pressLBR" prefHeight="49.0" prefWidth="74.0" text="(" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_rbr" fx:id="button_rbr" mnemonicParsing="false" onAction="#pressRBR" prefHeight="49.0" prefWidth="74.0" text=")" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_equ" fx:id="button_equ" mnemonicParsing="false" onAction="#pressEQU" prefHeight="49.0" prefWidth="74.0" text="⇔" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                                <Button id="button_imp" fx:id="button_imp" mnemonicParsing="false" onAction="#pressIMP" prefHeight="49.0" prefWidth="74.0" text="⇒" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                                <Button id="button_nor" fx:id="button_nor" mnemonicParsing="false" onAction="#pressNOR" prefHeight="49.0" prefWidth="74.0" text="↓" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                <Button id="button_not" fx:id="button_not" mnemonicParsing="false" onAction="#pressNOT" prefHeight="49.0" prefWidth="74.0" text="¬" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                                <Button id="button_w1" fx:id="button_w1" mnemonicParsing="false" onAction="#pressW1" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_f1" fx:id="button_f1" mnemonicParsing="false" onAction="#pressF1" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                                              </children>
                                           </GridPane>
                                        </children>
@@ -148,14 +162,14 @@
                                           <TextField id="textfield2" fx:id="input_table" alignment="BOTTOM_RIGHT" layoutY="2.0" prefHeight="98.0" prefWidth="298.0" promptText="EIngabe" />
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane  id="anchorPane10" minHeight="0.0" minWidth="0.0" prefHeight="213.0" prefWidth="298.0" GridPane.rowIndex="1">
+                                    <AnchorPane id="anchorPane10" minHeight="0.0" minWidth="0.0" prefHeight="213.0" prefWidth="298.0" GridPane.rowIndex="1">
                                        <children>
                                           <GridPane id="gridPane6" maxHeight="250.0" maxWidth="300.0" prefHeight="250.0" prefWidth="300.0">
                                              <children>
                                                 <Button id="button_p" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="P" GridPane.valignment="TOP" />
                                                 <Button id="button_q" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="Q" GridPane.columnIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_and" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="∧" GridPane.columnIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_enter2" fx:id="button_enter2" alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                                <Button id="button_enter2" fx:id="button_enter2" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#processingTable" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                                 <Button id="button_nand" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↑" GridPane.columnIndex="3" GridPane.valignment="TOP" />
                                                 <Button id="button_r" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="R" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_s" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="S" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
@@ -168,8 +182,8 @@
                                                 <Button id="button_imp" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="⇒" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                                 <Button id="button_nor" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↓" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_not" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="¬" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                                <Button id="button_w2" fx:id="button_w2" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_f2" fx:id="button_f2" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_w2" fx:id="button_w2" mnemonicParsing="false" onAction="#pressW2" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_f2" fx:id="button_f2" mnemonicParsing="false" onAction="#pressF2" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -238,7 +252,7 @@
                                                 <Button id="button_p" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="P" GridPane.valignment="TOP" />
                                                 <Button id="button_q" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="Q" GridPane.columnIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_and" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="∧" GridPane.columnIndex="2" GridPane.valignment="TOP" />
-                                                <Button id="button_enter2" fx:id="button_enter2" alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                                <Button id="button_enter2" fx:id="button_enter2" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#processingKV" prefHeight="49.0" prefWidth="224.0" text="Enter" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                                 <Button id="button_nand" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↑" GridPane.columnIndex="3" GridPane.valignment="TOP" />
                                                 <Button id="button_r" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="R" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_s" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="S" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
@@ -251,8 +265,8 @@
                                                 <Button id="button_imp" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="⇒" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                                 <Button id="button_nor" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="↓" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_not" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="¬" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                                <Button id="button_w3" fx:id="button_w3" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_f3" fx:id="button_f3" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_w3" fx:id="button_w3" mnemonicParsing="false" onAction="#pressW3" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_f3" fx:id="button_f3" mnemonicParsing="false" onAction="#pressF3" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                                              </children>
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
