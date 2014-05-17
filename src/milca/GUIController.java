@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.fxml.*;
 
 @SuppressWarnings("unused")
-public class GUIController extends Pane implements Initializable {
+public class GUIController<S> extends Pane implements Initializable {
 
     @FXML
     MenuItem menu_new;
@@ -78,6 +78,21 @@ public class GUIController extends Pane implements Initializable {
     Button button_f3;
     @FXML
     Button button_enter3;
+	@FXML
+    TableColumn colP;
+    @FXML
+    TableColumn colQ;
+    @FXML
+    TableColumn colR;
+    @FXML
+    TableColumn colS;
+    @FXML
+    TableColumn colT;
+    @FXML
+    TableColumn colU;
+    @FXML
+    TableColumn colSolution;
+    
     
     private App application;
     
@@ -99,9 +114,9 @@ public class GUIController extends Pane implements Initializable {
 	}
     public void openFile()
     {	/* FileChooser fileChooser = new FileChooser();
-    	 * fileChooser.setTitle("�ffnen");
+    	 * fileChooser.setTitle("Öffnen");
     	 * fileChooser.showOpenDialog(application.getStage());
-    	 * Neue Klasse f�r FileChooser
+    	 * Neue Klasse für FileChooser
     	 */
     }
     public void save()
@@ -117,7 +132,10 @@ public class GUIController extends Pane implements Initializable {
     {	
     }
     public void processingFormula()
-    {	
+    {	//Formula formula = new Formula(input_formula.getText());
+    	//Wahrheitstabelle truthtable = new Wahrheitstabelle(formula.getVariable().length);
+    	
+    	
     }
     public void processingTable()
     {	
@@ -126,66 +144,67 @@ public class GUIController extends Pane implements Initializable {
     {	
     }
     public void pressP()
-    {	
+    {	input_formula.setText(input_formula.getText() + "P");
     }
     public void pressQ()
-    {	
+    {	input_formula.setText(input_formula.getText() + "Q");
     }
     public void pressR()
-    {	
+    {	input_formula.setText(input_formula.getText() + "R");
     }
     public void pressS()
-    {	
+    {	input_formula.setText(input_formula.getText() + "S");
     }
     public void pressT()
-    {	
+    {	input_formula.setText(input_formula.getText() + "T");
     }
     public void pressU()
-    {	
+    {	input_formula.setText(input_formula.getText() + "U");
     }
     public void pressW1()
-    {	
+    {	input_formula.setText(input_formula.getText() + "w");
     }
     public void pressF1()
-    {	
+    {	input_formula.setText(input_formula.getText() + "f");
     }
     public void pressW2()
-    {	
+    {	input_table.setText(input_table.getText() + "w");
     }
     public void pressF2()
-    {	
+    {	input_table.setText(input_table.getText() + "f");
     }
     public void pressW3()
-    {	
+    {	input_kv.setText(input_kv.getText() + "w");
     }
     public void pressF3()
-    {	
+    {	input_kv.setText(input_kv.getText() + "f");
     }
     public void pressAND()
-    {	
+    {	input_formula.setText(input_formula.getText() + "∧");
     }
     public void pressNAND()
-    {	
+    {	input_formula.setText(input_formula.getText() + "↑");
     }
     public void pressOR()
-    {	
+    {	input_formula.setText(input_formula.getText() + "∨");
     }
     public void pressNOR()
-    {	
+    {	input_formula.setText(input_formula.getText() + "↓");
     }
     public void pressEQU()
-    {	
+    {	input_formula.setText(input_formula.getText() + "⇔");
     }
     public void pressIMP()
-    {	
+    {	input_formula.setText(input_formula.getText() + "⇒");
     }
     public void pressNOT()
-    {	
+    {	input_formula.setText(input_formula.getText() + "¬");
     }
     public void pressLBR()
-    {	
+    {	input_formula.setText(input_formula.getText() + "(");
     }
     public void pressRBR()
-    {	
+    {	input_formula.setText(input_formula.getText() + ")");
     }
+    
 }
