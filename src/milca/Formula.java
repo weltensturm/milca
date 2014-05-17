@@ -35,24 +35,49 @@ public class Formula {
 		return root.get();
 	}
 	
-	public Argument parse(String text) throws NoSuchFieldException, SecurityException{
-		// (p | r) & q
-		// find strongest binding operator
-		text = stripOuterBrackets(text);
+	public Argument parse(String text) throws NoSuchFieldException, SecurityException {
+		// find weakest binding operator
 		for(Map.Entry<String,Class<Argument>> entry: operators.entrySet()){
 			String operator = entry.getValue().getField("identifier").toString();
 			int pos = text.indexOf(operator);
 			if(pos < 0)
 				continue;
-			String left = "";
-			String right = "";
-			for(char c: text){
-				
+
+			String[] args = new String[2];
+			int active = 0;
+			int brackets = 0;
+			for(int i=0; i<text.length(); i++){
+				if(text.charAt(i) == '(')
+					brackets++;
+				if(text.charAt(i) == ')')
+					brackets--;
+				args[active] += text.charAt(i);
 			}
 		}
+		return parse(stripOuterBrackets(text));
 		
 	}
 	
+
+	protected int findOperator(String where, String op){
+		int start = 0;
+		int level = 0;
+		for(int i=0; i<where.length(); i++){
+			if(where.charAt(i) == '(')
+				level++;
+			else if(where.charAt(i) == ')')
+				level--;
+			else if(level == 0)
+				if(where.charAt(i) == op.charAt(start)){
+					start++;
+				}else
+					start = 0;
+				if(start == op.length())
+					return i-start+1;
+		}
+		return -1;
+	}
+
 	protected String stripOuterBrackets(String text){
 		text = text.trim();
 		if(text.charAt(0) == '(' && text.charAt(text.length()-1) == ')'){
