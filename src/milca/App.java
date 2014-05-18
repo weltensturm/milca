@@ -1,52 +1,76 @@
 package milca;
 
-import java.net.URL;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.apache.pivot.beans.Bindable;
-import org.apache.pivot.beans.BXMLSerializer;
-import org.apache.pivot.collections.Map;
-import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.Application;
-import org.apache.pivot.wtk.Display;
-import org.apache.pivot.wtk.Window;
-import org.apache.pivot.wtk.DesktopApplicationContext;
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.fxml.*;
 
+public class App extends Application {
 
-public class App implements Application, Bindable {
-
-	// app entry
-	public static void main(String[] args) {
-	    DesktopApplicationContext.main(App.class, args);
-	}
-
-    private Window window = null;
- 
-    @Override
-    public void startup(Display display, Map<String, String> properties) throws Exception {
-        BXMLSerializer bxmlSerializer = new BXMLSerializer();
-        window = (Window)bxmlSerializer.readObject(App.class, "app.bxml");
-        window.open(display);
+    private Stage stage;
+    private final double MINIMUM_WINDOW_WIDTH = 616.0;
+    private final double MINIMUM_WINDOW_HEIGHT = 446.0;
+    private final double MAXIMUM_WINDOW_WIDTH = 616.0;
+    private final double MAXIMUM_WINDOW_HEIGHT = 446.0;
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Application.launch(App.class, (java.lang.String[])null);
     }
 
+	private Formula formula;
+    
     @Override
-    public void initialize(Map<String, Object> namespace, URL location, Resources resources){
-    }
-
-    @Override
-    public boolean shutdown(boolean optional) {
-        if (window != null) {
-            window.close();
+    public void start(Stage primaryStage) {
+        try {
+            stage = primaryStage;
+            stage.setTitle("Milca Logics");
+            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
+            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
+            stage.setMaxWidth(MAXIMUM_WINDOW_WIDTH);
+            stage.setMaxHeight(MAXIMUM_WINDOW_HEIGHT);
+            
+            formula = new Formula();
+            System.out.println(formula.findOperator("(a -> b) -> c", "->"));
+            
+            gotoGUI();
+            primaryStage.show();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
-        return false;
     }
 
-    @Override
-    public void suspend() {
+    private void gotoGUI() {
+        try {
+        	GUI login = (GUI) replaceSceneContent("GUI1.fxml");
+            login.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    @Override
-    public void resume() {
+    private Initializable replaceSceneContent(String fxml) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        InputStream in = App.class.getResourceAsStream(fxml);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setLocation(App.class.getResource(fxml));
+        Pane page;
+        try {
+            page = (Pane) loader.load(in);
+        } finally {
+            in.close();
+        } 
+        Scene scene = new Scene(page, 800, 600);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        return (Initializable) loader.getController();
     }
-
 }

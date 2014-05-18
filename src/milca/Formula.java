@@ -25,7 +25,7 @@ public class Formula {
 	public void setFormula(String formula){
 		try {
 			root = parse(formula);
-		} catch (NoSuchFieldException | SecurityException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -35,30 +35,76 @@ public class Formula {
 		return root.get();
 	}
 	
-	public Argument parse(String text) throws NoSuchFieldException, SecurityException {
+	public Argument parse(String text, int parsestart){
 		// find weakest binding operator
-		for(Map.Entry<String,Class<Argument>> entry: operators.entrySet()){
-			String operator = entry.getValue().getField("identifier").toString();
-			int pos = text.indexOf(operator);
-			if(pos < 0)
-				continue;
+		try {
+			for(Map.Entry<String,Class<Argument>> entry: operators.entrySet()){
+				Class<?> cls = entry.getValue();
+				String str = cls.getField("identifier").toString();
 
-			String[] args = new String[2];
-			int active = 0;
-			int brackets = 0;
-			for(int i=0; i<text.length(); i++){
-				if(text.charAt(i) == '(')
-					brackets++;
-				if(text.charAt(i) == ')')
-					brackets--;
-				args[active] += text.charAt(i);
-			}
-		}
-		return parse(stripOuterBrackets(text));
+				str = cls.getField("identifier").toString();
+				int weakestPos = findOperator(text, str);
+				if(weakestPos >= 0){
+					OperatorBinary arg = (OperatorBinary)cls.newInstance();
+					arg.left = parse(text.substring(0, weakestPos), 0);
+					arg.right = parse(text.substring(weakestPos+str.length(), text.length()), weakestPos+str.length());
+					return arg;
+				}
 		
+			}
+
+			int bracketLevel = 0;
+			int parallelBrackets = 0;
+			boolean invert = false;
+			char varchar = '0';
+			for(int i=0; i<text.length(); i++){
+				switch(text.charAt(i)){
+					case '(':
+						bracketLevel++;
+						break;
+					case ')':
+						bracketLevel--;
+						if(bracketLevel == 0)
+							parallelBrackets++;
+						break;
+					case ' ':
+						continue;
+					case '!':
+						invert = !invert;
+						break;
+					case 'a':
+					case 'b':
+					case 'c':
+					case 'd':
+					case 'e':
+					case 'f':
+						if(varchar != '0')
+							throw new Exception("Invalid Syntax (too many variables) at " + (i+parsestart));
+						varchar = text.charAt(i);
+						break;
+					default:
+						throw new Exception("Invalid Syntax (unknown character) at " + (i+parsestart));
+				}
+			}
+			if(parallelBrackets > 1)
+				throw new Exception("Invalid Syntax (too many brackets)");
+			
+			if(invert){
+				OperatorNot arg = new OperatorNot();
+				Variable var = new Variable();
+				var.name = "" + varchar;
+				arg.arg = var;
+			}else{
+				Argument arg;
+				arg = new Variable();
+			}	
+			
+		}catch(Exception e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-
 	protected int findOperator(String where, String op){
 		int start = 0;
 		int level = 0;
