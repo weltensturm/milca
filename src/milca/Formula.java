@@ -1,21 +1,31 @@
 package milca;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
 public class Formula {
 	
 	protected Argument root;
-	protected Variable[] variables;
-	protected HashMap<String,Class<Argument>> operators;
+	protected List<Variable> variables;
+	protected List<Class<?>> operators;
+	
+	public Formula(){
+		operators = new ArrayList<Class<?>>();
+		operators.add(OperatorEquivalent.class);
+		operators.add(OperatorImplicates.class);
+		operators.add(OperatorOr.class);
+		operators.add(OperatorAnd.class);
+		variables = new ArrayList<Variable>();
+	}
 	
 	public void setVariable(String name, boolean state) throws Exception {
-		if(root != null)
+		if(root == null)
 			throw new Exception("No formula loaded");
-		for(int i=0; i<variables.length; i++){
-			if(variables[i].name == name){
-				variables[i].state = state;
+		for(Variable v: variables){
+			if(v.name.equals(name)){
+				v.state = state;
 				return;
 			}
 		}
@@ -24,7 +34,7 @@ public class Formula {
 	
 	public void setFormula(String formula){
 		try {
-			root = parse(formula);
+			root = parse(formula, 0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,74 +45,82 @@ public class Formula {
 		return root.get();
 	}
 	
-	public Argument parse(String text, int parsestart){
+	public Argument parse(String text, int parsestart) throws Exception {
 		// find weakest binding operator
-		try {
-			for(Map.Entry<String,Class<Argument>> entry: operators.entrySet()){
-				Class<?> cls = entry.getValue();
-				String str = cls.getField("identifier").toString();
+		System.out.println("Parsing " + text);
 
-				str = cls.getField("identifier").toString();
-				int weakestPos = findOperator(text, str);
-				if(weakestPos >= 0){
-					OperatorBinary arg = (OperatorBinary)cls.newInstance();
-					arg.left = parse(text.substring(0, weakestPos), 0);
-					arg.right = parse(text.substring(weakestPos+str.length(), text.length()), weakestPos+str.length());
-					return arg;
-				}
-		
+		for(Class<?> cls: operators){
+			String str = (String)cls.getField("identifier").get(null);
+			int weakestPos = findOperator(text, str);
+			if(weakestPos >= 0){
+				System.out.println("Found " + str);
+				OperatorBinary arg = (OperatorBinary)cls.newInstance();
+				arg.left = parse(text.substring(0, weakestPos), 0);
+				arg.right = parse(text.substring(weakestPos+str.length(), text.length()), weakestPos+str.length());
+				return arg;
 			}
+	
+		}
 
-			int bracketLevel = 0;
-			int parallelBrackets = 0;
-			boolean invert = false;
-			char varchar = '0';
-			for(int i=0; i<text.length(); i++){
-				switch(text.charAt(i)){
-					case '(':
-						bracketLevel++;
-						break;
-					case ')':
-						bracketLevel--;
-						if(bracketLevel == 0)
-							parallelBrackets++;
-						break;
-					case ' ':
-						continue;
-					case '!':
+		int bracketLevel = 0;
+		int parallelBrackets = 0;
+		boolean invert = false;
+		char varchar = '0';
+		
+		for(int i=0; i<text.length(); i++){
+			switch(text.charAt(i)){
+				case '(':
+					bracketLevel++;
+					break;
+				case ')':
+					bracketLevel--;
+					if(bracketLevel == 0)
+						parallelBrackets++;
+					break;
+				case ' ':
+					continue;
+				case '!':
+					if(bracketLevel == 0){
 						invert = !invert;
-						break;
-					case 'a':
-					case 'b':
-					case 'c':
-					case 'd':
-					case 'e':
-					case 'f':
+					}
+					break;
+				case 'a':
+				case 'b':
+				case 'c':
+				case 'd':
+				case 'e':
+				case 'f':
+					if(bracketLevel == 0){
 						if(varchar != '0')
 							throw new Exception("Invalid Syntax (too many variables) at " + (i+parsestart));
 						varchar = text.charAt(i);
-						break;
-					default:
-						throw new Exception("Invalid Syntax (unknown character) at " + (i+parsestart));
-				}
+					}
+					break;
+				default:
+					if(bracketLevel == 0)
+						throw new Exception("Invalid Syntax (unknown character \"" + text.charAt(i) + "\") at " + (i+parsestart));
 			}
-			if(parallelBrackets > 1)
-				throw new Exception("Invalid Syntax (too many brackets)");
-			
-			if(invert){
-				OperatorNot arg = new OperatorNot();
-				Variable var = new Variable();
-				var.name = "" + varchar;
-				arg.arg = var;
-			}else{
-				Argument arg;
-				arg = new Variable();
-			}	
-			
-		}catch(Exception e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		if(parallelBrackets > 1)
+			throw new Exception("Invalid Syntax (too many brackets)");
+		
+		if(varchar == '0'){
+			return parse(stripOuterBrackets(text), parsestart);
+		}
+		if(invert){
+			OperatorNot arg = new OperatorNot();
+			Variable var = new Variable();
+			var.name = "" + varchar;
+			arg.arg = var;
+			variables.add(var);
+			return arg;
+		}
+		Variable arg;
+		arg = new Variable();
+		arg.name = "" + varchar;
+		variables.add(arg);
+		return arg;
+
 	}
 	
 	protected int findOperator(String where, String op){
@@ -127,7 +145,7 @@ public class Formula {
 	protected String stripOuterBrackets(String text){
 		text = text.trim();
 		if(text.charAt(0) == '(' && text.charAt(text.length()-1) == ')'){
-			return text.substring(1,text.length()-2);
+			return text.substring(1,text.length()-1);
 		}
 		return "wtf";
 	}
