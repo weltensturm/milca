@@ -5,10 +5,10 @@ class OperatorUnary extends Argument {
 	/**
 	 * Unary operator. Can function as bracket enclosure.
 	 */
-	protected Argument arg;
+	protected Argument right;
 	
 	public boolean get(){
-		return arg.get();
+		return right.get();
 	}
 	
 }

@@ -7,6 +7,8 @@ class OperatorAnd extends OperatorBinary {
 		return left.get() && right.get();
 	}
 
-	public static final String identifier = "&";
+	public static final String[] identifiers = {
+		"&", "∧"
+	};
 
 }
