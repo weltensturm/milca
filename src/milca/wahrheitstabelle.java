@@ -1,6 +1,6 @@
 package milca;
 
-public class wahrheitstabelle {
+public class Wahrheitstabelle {
 	public boolean [][] tabelle;
     private int next;
     
@@ -11,7 +11,7 @@ public class wahrheitstabelle {
 		this.next = next;
 	}
     
-	public wahrheitstabelle(int zahl)
+	public Wahrheitstabelle(int zahl)
     {
         if(zahl <=6 && zahl >0)
             tabelle= new boolean [(int) Math.pow(2d,zahl)][zahl];
