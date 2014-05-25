@@ -49,8 +49,7 @@ public class Formula {
 	
 	public Argument parse(String text, int parsestart) throws Exception {
 		// find weakest binding operator
-		System.out.println("Parsing " + text);
-
+		
 		for(Class<?> cls: operators){
 			String[] ids = (String[])cls.getField("identifiers").get(null);
 			int weakestPos = -1;
@@ -63,7 +62,6 @@ public class Formula {
 				}
 			}
 			if(weakestPos >= 0){
-				System.out.println("Found " + opstr);
 				int rightStart = weakestPos+opstr.length();
 				if(OperatorBinary.class.isAssignableFrom(cls)){
 					OperatorBinary result = (OperatorBinary)cls.newInstance();
@@ -91,37 +89,53 @@ public class Formula {
 				bracketLevel++;
 			else if(c == ')'){
 				bracketLevel--;
-				if(bracketLevel == 0)
+				if(bracketLevel == 0){
 					parallelBrackets++;
+					if(parallelBrackets > 1)
+						throw new SyntaxError("Unexpected opening bracket", i+parsestart, 1);
+				}else if(bracketLevel < 0){
+					throw new SyntaxError("Unexpected closing bracket", i+parsestart, 1);
+				}
 			}
 			else if(c == ' ')
 				continue;
 			else if(c >= 'a' && c <= 'z'){
 				if(bracketLevel == 0){
 					if(varchar != '0')
-						throw new Exception("Invalid Syntax (too many variables) at " + (i+parsestart));
+						throw new SyntaxError("Unexpected variable", i+parsestart, 1);
 					varchar = c;
 				}
 			}else
 				if(bracketLevel == 0)
-					throw new Exception("Invalid Syntax (unknown character \"" + c + "\") at " + (i+parsestart));
+					throw new SyntaxError("Unknown character \"" + c + "\"", i+parsestart, 1);
 			i++;
 		}
 		
 		if(bracketLevel > 0)
-			throw new Exception("Invalid Syntax (too many brackets)");
-		if(parallelBrackets > 1)
-			throw new Exception("Invalid Syntax, Brackets not connected with operator");
+			throw new SyntaxError("Expected closing bracket", 0, text.length());
 		
 		if(varchar == '0'){
 			return parse(stripOuterBrackets(text), parsestart);
 		}
-		Variable arg;
-		arg = new Variable();
-		arg.name = "" + varchar;
-		variables.add(arg);
-		return arg;
+		
+		return addVariable("" + varchar);
 
+	}
+	
+	protected Variable addVariable(String name){
+		Variable ret = null;
+		for(Variable var: variables){
+			if(var.name.equals(name)){
+				ret = var;
+				break;
+			}
+		}
+		if(ret == null){
+			ret = new Variable();
+			ret.name = name;
+			variables.add(ret);
+		}
+		return ret;
 	}
 	
 	protected int findOperator(String where, String op){
