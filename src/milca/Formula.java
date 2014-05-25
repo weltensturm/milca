@@ -34,13 +34,8 @@ public class Formula {
 		throw new Exception("No variable \"" + name + "\"");
 	}
 	
-	public void setFormula(String formula){
-		try {
-			root = parse(formula.toLowerCase(), 0);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void setFormula(String formula) throws Exception {
+		root = parse(formula.toLowerCase(), 0);
 	}
 	
 	public boolean calculate(){
