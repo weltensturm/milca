@@ -112,18 +112,16 @@ public class GUIController<S> extends Pane implements Initializable {
     public void help()
     {	
     }
-    public void processingFormula() throws Exception
-    {	String string = input_formula.getText();
+    public void processingFormula()
+    {	try
+    	{
+    	String string = input_formula.getText();
     	Formula formula = new Formula();
     	formula.setFormula(string);
     	Wahrheitstabelle truthtable = new Wahrheitstabelle(formula.variables.size());
     	truthtable.makeTabelleV();
     	
-    	for(int i = 0; i < truthtable.tabelle[0].length; i++)
-    	{	if(tableHead[i] == null)
-    		{		
-    		}
-    	}
+    	
     	for(int i = 1; i <= truthtable.tabelle.length; i++)
     	{	solutionPane1.getRowConstraints().get(i).setMaxHeight(25.0);
     		solutionPane1.getRowConstraints().get(i).setPrefHeight(25.0);
@@ -180,10 +178,18 @@ public class GUIController<S> extends Pane implements Initializable {
     		}
     		solution[i].setText(formula.calculate() ? "w" : "f");
     	}
-
-    	
-    	
-    	
+    	}
+    	catch (Exception ex)
+    	{
+    		if(solution[0] == null)
+    		{	solution[0] = new Label();
+    			solutionPane1.add(solution[0], 7, 1);
+    		}
+			solution[0].setText("Fehlerhafte Eingabe");
+			solutionPane1.getRowConstraints().get(1).setMinHeight(25.0);
+			solutionPane1.getRowConstraints().get(1).setPrefHeight(25.0);
+			solutionPane1.getRowConstraints().get(1).setMaxHeight(25.0);
+    	}
     }
     public void processingTable()
     {	
