@@ -52,7 +52,7 @@ public class App extends Application {
 
     private void gotoGUI() {
         try {
-        	GUI login = (GUI) replaceSceneContent("GUI1.fxml");
+        	GUIController login = (GUIController) replaceSceneContent("GUI1.fxml");
             login.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
