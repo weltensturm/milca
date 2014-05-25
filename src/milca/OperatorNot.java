@@ -4,9 +4,11 @@ package milca;
 class OperatorNot extends OperatorUnary {
 	
 	public boolean get(){
-		return !arg.get();
+		return !right.get();
 	}
 
-	public static final String identifier = "!";
+	public static final String[] identifiers = {
+		"!", "¬"
+	};
 	
 }

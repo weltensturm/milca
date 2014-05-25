@@ -25,6 +25,8 @@ public class App extends Application {
         Application.launch(App.class, (java.lang.String[])null);
     }
 
+	private Formula formula;
+    
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -35,8 +37,14 @@ public class App extends Application {
             stage.setMaxWidth(MAXIMUM_WINDOW_WIDTH);
             stage.setMaxHeight(MAXIMUM_WINDOW_HEIGHT);
             
+            formula = new Formula();
+            formula.setFormula("(a & b) | c");
+            formula.setVariable("c", true);
+            System.out.println(formula.calculate());
+            
             gotoGUI();
             primaryStage.show();
+
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
