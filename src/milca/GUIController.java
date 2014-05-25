@@ -117,7 +117,7 @@ public class GUIController<S> extends Pane implements Initializable {
     	Formula formula = new Formula();
     	formula.setFormula(string);
     	Wahrheitstabelle truthtable = new Wahrheitstabelle(formula.variables.size());
-    	truthtable.MakeTabelleV();
+    	truthtable.makeTabelleV();
     	
     	for(int i = 0; i < truthtable.tabelle[0].length; i++)
     	{	if(tableHead[i] == null)
