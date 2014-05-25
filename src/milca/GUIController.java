@@ -8,13 +8,14 @@ import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.fxml.*;
+import javafx.geometry.Pos;
 
 @SuppressWarnings("unused")
 public class GUIController<S> extends Pane implements Initializable {
 
     @FXML
     MenuItem menu_new;
-    @FXML
+/*    @FXML
     MenuItem menu_open;
     @FXML
     MenuItem menu_save;
@@ -23,13 +24,13 @@ public class GUIController<S> extends Pane implements Initializable {
     @FXML
     MenuItem menu_close;
     @FXML
-    MenuItem menu_help;
+    MenuItem menu_help;*/
     @FXML
     TextField input_formula;
     @FXML
     TextField input_table;
-    @FXML
-    TextField input_kv;
+/*    @FXML
+    TextField input_kv;*/
     @FXML
     Button button_p;
     @FXML
@@ -61,10 +62,6 @@ public class GUIController<S> extends Pane implements Initializable {
     @FXML
     Button button_rbr;
     @FXML
-    Button button_w1;
-    @FXML
-    Button button_f1;
-    @FXML
     Button button_enter1;
     @FXML
     Button button_w2;
@@ -73,26 +70,14 @@ public class GUIController<S> extends Pane implements Initializable {
     @FXML
     Button button_enter2;
     @FXML
-    Button button_w3;
+    GridPane solutionPane1;
     @FXML
-    Button button_f3;
-    @FXML
-    Button button_enter3;
-	@FXML
-    TableColumn colP;
-    @FXML
-    TableColumn colQ;
-    @FXML
-    TableColumn colR;
-    @FXML
-    TableColumn colS;
-    @FXML
-    TableColumn colT;
-    @FXML
-    TableColumn colU;
-    @FXML
-    TableColumn colSolution;
+    AnchorPane anchorPane1;
     
+    private Label[] tableHead = new Label[6];
+    private Label[][] truthvalues = new Label[64][6];
+    private Label[] solution = new Label[64];
+
     
     private App application;
     
@@ -102,9 +87,9 @@ public class GUIController<S> extends Pane implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        input_formula.setPromptText("Eingage");
-        input_table.setPromptText("Eingage");
-        input_kv.setPromptText("Eingage");
+        input_formula.setPromptText("Eingabe");
+        input_table.setPromptText("Eingabe");
+        //input_kv.setPromptText("Eingabe");
     }
     
 	public void newFile()
@@ -113,11 +98,7 @@ public class GUIController<S> extends Pane implements Initializable {
 		application.start(primaryStage);
 	}
     public void openFile()
-    {	/* FileChooser fileChooser = new FileChooser();
-    	 * fileChooser.setTitle("Öffnen");
-    	 * fileChooser.showOpenDialog(application.getStage());
-    	 * Neue Klasse für FileChooser
-    	 */
+    {	
     }
     public void save()
     {	
@@ -131,18 +112,85 @@ public class GUIController<S> extends Pane implements Initializable {
     public void help()
     {	
     }
-    public void processingFormula()
-    {	//Formula formula = new Formula(input_formula.getText());
-    	//Wahrheitstabelle truthtable = new Wahrheitstabelle(formula.getVariable().length);
+    public void processingFormula() throws Exception
+    {	String string = input_formula.getText();
+    	Formula formula = new Formula();
+    	formula.setFormula(string);
+    	Wahrheitstabelle truthtable = new Wahrheitstabelle(formula.variables.size());
+    	truthtable.MakeTabelleV();
+    	
+    	for(int i = 0; i < truthtable.tabelle[0].length; i++)
+    	{	if(tableHead[i] == null)
+    		{		
+    		}
+    	}
+    	for(int i = 1; i <= truthtable.tabelle.length; i++)
+    	{	solutionPane1.getRowConstraints().get(i).setMaxHeight(25.0);
+    		solutionPane1.getRowConstraints().get(i).setPrefHeight(25.0);
+    	}
+    	for(int i = (truthtable.tabelle.length + 1); i < truthvalues.length; i++)
+    	{	solutionPane1.getRowConstraints().get(i).setMaxHeight(0.0);
+    		solutionPane1.getRowConstraints().get(i).setPrefHeight(0.0);
+    	}
+    	solutionPane1.setPrefHeight(25.0 * truthtable.tabelle.length);
+    	solutionPane1.setMaxHeight(25.0 *truthtable.tabelle.length);
+    	anchorPane1.setPrefHeight(solutionPane1.getPrefHeight());
+    	
+    	for(int i = 0; i < truthtable.tabelle[0].length; i++)
+    	{	if(tableHead[i] == null)
+    		{	tableHead[i] = new Label();
+    			solutionPane1.add(tableHead[i], i, 0);
+    			tableHead[i].setAlignment(javafx.geometry.Pos.CENTER);
+    		}
+    		tableHead[i].setText(formula.variables.get(i).name);
+    		solutionPane1.getColumnConstraints().get(i).setMaxWidth(25.0);
+    		solutionPane1.getColumnConstraints().get(i).setPrefWidth(25.0);
+    		solutionPane1.getColumnConstraints().get(i).setMinWidth(25.0);
+    	}
+    	for(int i = truthtable.tabelle[0].length; i < truthvalues[0].length; i++)
+    	{	solutionPane1.getColumnConstraints().get(i).setMaxWidth(0.0);
+    		solutionPane1.getColumnConstraints().get(i).setPrefWidth(0.0);
+    		solutionPane1.getColumnConstraints().get(i).setMinWidth(0.0);
+    	}
+    	
+    	//Gibt w oder f in Tabellenformat aus;
+    	//TO-DO: Wenn man zuvor eine lange Tabelle errechnet hat und anschließend eine kurze, wird die Tabelle gequetscht!!!
+    	for(int i = 1; i < truthvalues.length; i++)
+    	{	for(int j = 0; j < truthvalues[i].length; j++)
+    			if(truthvalues[i][j] != null)
+    				truthvalues[i][j].setText("");
+    		if(solution[i] != null)
+    			solution[i].setText("");
+    	}
+    	
+    	for(int i = 0; i < truthtable.tabelle.length; i++)
+    	{	for(int j = 0; j < truthtable.tabelle[i].length; j++)
+    		{	if(truthvalues[i][j] == null)
+    			{	truthvalues[i][j] = new Label();
+    				solutionPane1.add(truthvalues[i][j], j, i + 1);
+    				truthvalues[i][j].setAlignment(javafx.geometry.Pos.CENTER);
+    			}
+				truthvalues[i][j].setText(truthtable.tabelle[i][j] ? "w": "f");
+				formula.setVariable(formula.variables.get(j).name, truthtable.tabelle[i][j]);
+    		}
+    		if(solution[i] == null)
+    		{	solution[i] = new Label();
+    			solutionPane1.add(solution[i], 7, i + 1);
+    			solution[i].setAlignment(javafx.geometry.Pos.CENTER);
+    		}
+    		solution[i].setText(formula.calculate() ? "w" : "f");
+    	}
+
+    	
     	
     	
     }
     public void processingTable()
     {	
     }
-    public void processingKV()
+    /*public void processingKV()
     {	
-    }
+    }*/
     public void pressP()
     {	input_formula.setText(input_formula.getText() + "P");
     }
@@ -161,24 +209,18 @@ public class GUIController<S> extends Pane implements Initializable {
     public void pressU()
     {	input_formula.setText(input_formula.getText() + "U");
     }
-    public void pressW1()
-    {	input_formula.setText(input_formula.getText() + "w");
-    }
-    public void pressF1()
-    {	input_formula.setText(input_formula.getText() + "f");
-    }
     public void pressW2()
     {	input_table.setText(input_table.getText() + "w");
     }
     public void pressF2()
     {	input_table.setText(input_table.getText() + "f");
     }
-    public void pressW3()
+/*    public void pressW3()
     {	input_kv.setText(input_kv.getText() + "w");
     }
     public void pressF3()
     {	input_kv.setText(input_kv.getText() + "f");
-    }
+    }*/
     public void pressAND()
     {	input_formula.setText(input_formula.getText() + "∧");
     }

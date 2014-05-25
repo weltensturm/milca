@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.input.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -16,7 +17,7 @@
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem id="item2" fx:id="menu_open" mnemonicParsing="false" onAction="#openFile" text="Öffnen">
+                  <!-- <MenuItem id="item2" fx:id="menu_open" mnemonicParsing="false" onAction="#openFile" text="Öffnen">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -26,19 +27,19 @@
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem id="item4" fx:id="menu_saveas" mnemonicParsing="false" onAction="#saveAs" text="Speichern unter..." />
-              	  <MenuItem id="item5" fx:id="menu_close" mnemonicParsing="false" onAction="#closeWindow" text="Close">
+                  <MenuItem id="item4" fx:id="menu_saveas" mnemonicParsing="false" onAction="#saveAs" text="Speichern unter..." /> -->
+              	  <MenuItem id="item5" fx:id="menu_close" mnemonicParsing="false" onAction="#closeWindow" text="Schließen">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
             </items>
           </Menu>
-          <Menu id="menu1" mnemonicParsing="false" text="?">
+          <!-- <Menu id="menu1" mnemonicParsing="false" text="?">
             <items>
               <MenuItem id="item6" fx:id="menu_help" mnemonicParsing="false" onAction="#help" text="About" />
             </items>
-          </Menu>
+          </Menu>-->
         </menus>
       </MenuBar>
       <TabPane id="tabPane" layoutY="25.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="25.0" tabMinWidth="75.0">
@@ -58,21 +59,96 @@
                            <children>
                               <AnchorPane id="anchorPane2" prefHeight="350.0" prefWidth="300.0" GridPane.columnIndex="1">
                                  <children>
-                                    <ScrollPane prefHeight="364.0" prefWidth="300.0">
+                                    <ScrollPane prefHeight="350.0" prefWidth="300.0">
                                       <content>
-                                        <AnchorPane minHeight="364.0" minWidth="0.0" prefWidth="300.0">
+                                        <AnchorPane fx:id="anchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="285.0">
                                              <children>
-                                                <TableView prefWidth="300.0">
-                                                  <columns>
-                                                    <TableColumn id="col1" fx:id="colP" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="P" visible="false" />
-                                                    <TableColumn id="col2" fx:id="colQ" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="Q" visible="false" />
-                                                      <TableColumn id="col3" fx:id="colR" editable="false" maxWidth="-1.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="R" visible="false" />
-                                                      <TableColumn id="col4" fx:id="colS" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="S" visible="false" />
-                                                      <TableColumn id="col5" fx:id="colT" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" sortable="false" text="T" visible="false" />
-                                                      <TableColumn id="col6" fx:id="colU" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" text="U" visible="false" />
-                                                      <TableColumn id="col7" fx:id="colSolution" editable="false" maxWidth="285.0" minWidth="74.0" prefWidth="-1.0" sortable="false" text="Ergebnis" />
-                                                  </columns>
-                                                </TableView>
+                                                <GridPane fx:id="solutionPane1" prefHeight="456.0" prefWidth="285.0">
+                                                  <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="0" minWidth="0" prefWidth="0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                  	<RowConstraints maxHeight="25" minHeight="25" prefHeight="25" valignment="CENTER" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                     <RowConstraints maxHeight="0" minHeight="0" prefHeight="0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text="Ergebnis" GridPane.columnIndex="7">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
                                              </children>
                                           </AnchorPane>
                                       </content>
@@ -126,8 +202,8 @@
                                                 <Button id="button_imp" fx:id="button_imp" mnemonicParsing="false" onAction="#pressIMP" prefHeight="49.0" prefWidth="74.0" text="⇒" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                                 <Button id="button_nor" fx:id="button_nor" mnemonicParsing="false" onAction="#pressNOR" prefHeight="49.0" prefWidth="74.0" text="↓" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                                 <Button id="button_not" fx:id="button_not" mnemonicParsing="false" onAction="#pressNOT" prefHeight="49.0" prefWidth="74.0" text="¬" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                                <Button id="button_w1" fx:id="button_w1" mnemonicParsing="false" onAction="#pressW1" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                                <Button id="button_f1" fx:id="button_f1" mnemonicParsing="false" onAction="#pressF1" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_w1" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="w" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                                <Button id="button_f1" disable="true" mnemonicParsing="false" prefHeight="49.0" prefWidth="74.0" text="f" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
                                              </children>
                                           </GridPane>
                                        </children>
@@ -223,7 +299,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab id="tab3" closable="false" text="KV-Diagramm">
+<!--           <Tab id="tab3" closable="false" text="KV-Diagramm">
                <content>
                   <AnchorPane id="anchorPane11" prefWidth="600.0">
                      <children>
@@ -305,7 +381,7 @@
                      </children>
                   </AnchorPane>
                </content>
-            </Tab>
+            </Tab> -->
         </tabs>
       </TabPane>
    </children>
