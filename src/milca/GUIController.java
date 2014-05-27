@@ -73,6 +73,14 @@ public class GUIController<S> extends Pane implements Initializable {
     GridPane solutionPane1;
     @FXML
     AnchorPane anchorPane1;
+    @FXML
+    AnchorPane pane1;
+    @FXML
+    GridPane pane2;
+    @FXML
+    Label solutionKDNF;
+    @FXML
+    Label solutionKKNF;
     
     private Label[] tableHead = new Label[6];
     private Label[][] truthvalues = new Label[64][6];
@@ -193,6 +201,40 @@ public class GUIController<S> extends Pane implements Initializable {
     }
     public void processingTable()
     {	
+    	try
+    	{
+    		String kdnf = CanonicalGenerator.calcKDNF(input_table.getText());
+    		String kknf = CanonicalGenerator.calcKKNF(input_table.getText());
+    		
+    		solutionKDNF.setText(kdnf);
+    		solutionKKNF.setText(kknf);
+    		
+    		pane1.setPrefWidth(0.0);
+    		pane2.setPrefWidth(0.0);
+
+    		if(kdnf.length() > kknf.length())
+    			for(char c: kdnf.toCharArray())
+    			{
+    				pane1.setPrefWidth(pane1.getPrefWidth() + 5.0);
+    				pane2.setPrefWidth(pane1.getPrefWidth() + 5.0);
+    			}
+			else
+			{	
+    			for(char c: kknf.toCharArray())
+    			{
+    				pane1.setPrefWidth(pane1.getPrefWidth() + 5.0);
+    				pane2.setPrefWidth(pane1.getPrefWidth() + 5.0);
+    			}
+			}
+    		
+    	}
+    	catch(Exception ex)
+    	{
+    		solutionKDNF.setText("Ungültige Eingabe!");
+    		solutionKKNF.setText("Ungültige Eingabe!");
+    		System.out.println(ex);
+    	}	
+    	
     }
     /*public void processingKV()
     {	

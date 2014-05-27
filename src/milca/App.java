@@ -75,7 +75,9 @@ public class App extends Application {
         stage.sizeToScene();
         return (Initializable) loader.getController();
     }
-    public Stage getStage()
-    {	return stage;
-    }
+
+	public Stage getStage() {
+		return stage;
+	}
+
 }

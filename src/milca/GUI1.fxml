@@ -226,7 +226,34 @@
                                  <children>
                                     <ScrollPane id="scrollPane2" prefHeight="350.0" prefWidth="300.0">
                                        <content>
-                                          <AnchorPane id="anchorPane8" minHeight="350.0" minWidth="300.0" />
+                                          <AnchorPane id="anchorPane8" fx:id="pane1" minHeight="104.0" minWidth="245.0" prefHeight="162.0" prefWidth="245.0">
+                                             <children>
+                                                <GridPane fx:id="pane2" prefHeight="120.0" prefWidth="203.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text="KDNF:">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="KKNF:" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="solutionKDNF" GridPane.rowIndex="1" />
+                                                      <Label fx:id="solutionKKNF" GridPane.rowIndex="3" />
+                                                   </children>
+                                                </GridPane>
+                                             </children></AnchorPane>
                                        </content>
                                     </ScrollPane>
                                  </children>
