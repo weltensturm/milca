@@ -159,8 +159,6 @@ public class GUIController<S> extends Pane implements Initializable {
     		solutionPane1.getColumnConstraints().get(i).setMinWidth(0.0);
     	}
     	
-    	//Gibt w oder f in Tabellenformat aus;
-    	//TO-DO: Wenn man zuvor eine lange Tabelle errechnet hat und anschließend eine kurze, wird die Tabelle gequetscht!!!
     	for(int i = 1; i < truthvalues.length; i++)
     	{	for(int j = 0; j < truthvalues[i].length; j++)
     			if(truthvalues[i][j] != null)
