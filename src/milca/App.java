@@ -30,17 +30,13 @@ public class App extends Application {
         try {
             stage = primaryStage;
             stage.setTitle("Milca Logics");
+
             stage.setMinWidth(WINDOW_WIDTH);
             stage.setMinHeight(WINDOW_HEIGHT);
             stage.setMaxWidth(WINDOW_WIDTH);
             stage.setMaxHeight(WINDOW_HEIGHT);
             stage.setHeight(WINDOW_HEIGHT);
             stage.setWidth(WINDOW_WIDTH);
-            
-            formula = new Formula();
-            formula.setFormula("(a & b) | c");
-            formula.setVariable("c", true);
-            System.out.println(formula.calculate());
             
             gotoGUI();
             primaryStage.show();
