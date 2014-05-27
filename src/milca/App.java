@@ -13,10 +13,8 @@ import javafx.fxml.*;
 public class App extends Application {
 
     private Stage stage;
-    private final double MINIMUM_WINDOW_WIDTH = 616.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 446.0;
-    private final double MAXIMUM_WINDOW_WIDTH = 616.0;
-    private final double MAXIMUM_WINDOW_HEIGHT = 446.0;
+    private final double WINDOW_WIDTH = 616.0;
+    private final double WINDOW_HEIGHT = 446.0;
     
     /**
      * @param args the command line arguments
@@ -30,12 +28,13 @@ public class App extends Application {
         try {
             stage = primaryStage;
             stage.setTitle("Milca Logics");
-            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
-            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
-            stage.setMaxWidth(MAXIMUM_WINDOW_WIDTH);
-            stage.setMaxHeight(MAXIMUM_WINDOW_HEIGHT);
-            stage.setHeight(MINIMUM_WINDOW_HEIGHT);
-            stage.setWidth(MINIMUM_WINDOW_WIDTH);
+
+            stage.setMinWidth(WINDOW_WIDTH);
+            stage.setMinHeight(WINDOW_HEIGHT);
+            stage.setMaxWidth(WINDOW_WIDTH);
+            stage.setMaxHeight(WINDOW_HEIGHT);
+            stage.setHeight(WINDOW_HEIGHT);
+            stage.setWidth(WINDOW_WIDTH);
             
             gotoGUI();
             primaryStage.show();
@@ -69,5 +68,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+    public Stage getStage()
+    {	return stage;
     }
 }
